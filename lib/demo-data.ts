@@ -1,0 +1,13 @@
+import type { Moto, Settings } from "@/types";
+
+const image = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=85`;
+
+export const demoSettings: Settings = {
+  id: 1, name: "ATELIER MOTO", description: "Une selection exigeante de motos pour prendre la route avec confiance.", phone: "", whatsapp: "", email: "", address: "Coordonnees a configurer", wilaya: "Algerie", instagram: "", facebook: "", openingHours: "Samedi - Jeudi, 09:00 - 18:00", accentColor: "#e4492f", currency: "DA", showPrices: true, showSoldMotos: true, whatsappBtnText: "Ecrire sur WhatsApp",
+};
+const moto = (id: number, brand: string, model: string, category: string, year: number, price: number, status: string, engine: string, condition: string, images: string[], featured = false): Moto => ({ id, brand, model, category, year, price, currency: "DA", condition, status, engine, power: null, mileage: condition === "new" ? 0 : id * 1300, transmission: "6 vitesses", fuel: "Essence", color: "A configurer", description: "Une moto selectionnee avec soin, prete a rejoindre votre prochaine aventure.", images: images.map(image), featured, views: 0, createdAt: "2024-01-01", updatedAt: "2024-01-01" });
+export const demoMotos: Moto[] = [
+  moto(1, "Yamaha", "MT-07", "Naked", 2024, 1850000, "available", "689 cc", "new", ["photo-1558981806-ec527fa84c39"], true), moto(2, "Kawasaki", "Z650", "Naked", 2024, 1990000, "available", "649 cc", "new", ["photo-1568772585407-9361f9bf3a87"], true), moto(3, "Honda", "CB500F", "Naked", 2023, 1640000, "reserved", "471 cc", "used", ["photo-1609630875171-b1321377ee65"], true), moto(4, "Yamaha", "R7", "Sportive", 2024, 2750000, "available", "689 cc", "new", ["photo-1517846693594-ea5b5c5f12a4"], true), moto(5, "Honda", "PCX 125", "Scooter", 2024, 980000, "available", "125 cc", "new", ["photo-1558981285-6f0c94958bb6"]), moto(6, "KTM", "Duke 390", "Naked", 2023, 1430000, "available", "373 cc", "used", ["photo-1558980394-0c949c8f2a5b"]), moto(7, "Suzuki", "GSX-8R", "Sportive", 2024, 2380000, "sold", "776 cc", "new", ["photo-1558980664-10ea1a23c8f4"]), moto(8, "BMW", "G 310 R", "Naked", 2022, 1260000, "available", "313 cc", "used", ["photo-1558981806-ec527fa84c39"]),
+];
+export function formatPrice(price: number, currency = "DA") { return `${new Intl.NumberFormat("fr-DZ").format(price)} ${currency}`; }
+export function statusLabel(status: string) { return { available: "Disponible", reserved: "Reservee", sold: "Vendue" }[status] ?? status; }

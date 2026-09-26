@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Atelier Moto
 
-## Getting Started
+Catalogue de motos Next.js, PHP/MySQL et espace administrateur protege par NextAuth.
 
-First, run the development server:
+## Installation locale
+
+Prerequis : Node.js 20+, PHP 8.1+ avec PDO MySQL, et un compte MySQL capable de creer les tables.
+
+Installer les dependances :
+
+```bash
+npm install --legacy-peer-deps
+```
+
+Creer `.env.local` a la racine :
+
+```env
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="remplacer-par-une-longue-valeur-aleatoire"
+PHP_API_URL="http://localhost:8000/api.php"
+PHP_DB_HOST="localhost"
+PHP_DB_NAME="atelier_moto"
+PHP_DB_USER="UTILISATEUR"
+PHP_DB_PASSWORD="MOT_DE_PASSE"
+ADMIN_EMAIL="admin@votre-domaine.dz"
+ADMIN_PASSWORD="remplacer-par-un-mot-de-passe-fort"
+```
+
+Creer la base MySQL si necessaire :
+
+```sql
+CREATE DATABASE atelier_moto CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Initialiser les tables depuis `php/database.sql`, puis lancer l API PHP en local :
+
+```bash
+php -S localhost:8000 -t php
+```
+
+Lancer le site :
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Pages principales : `/`, `/motos`, `/admin/login`, `/admin`, `/admin/settings`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploiement Hostinger
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Importer `php/database.sql` dans la base MySQL Hostinger, envoyer `php/api.php` et `php/config.example.php` (renomme en `config.php`) sur l hebergement PHP, puis definir `PHP_API_URL` vers l URL publique de `api.php` dans le panneau Node.js :
 
-## Learn More
+```bash
+npm install --legacy-peer-deps
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Le dossier `public/uploads` doit etre accessible en ecriture pour l’upload des photos. Pour un stockage durable, utiliser un stockage persistant si l’hebergement recree le disque a chaque deploiement.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verification
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run lint
+```

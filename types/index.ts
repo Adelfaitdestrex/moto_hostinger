@@ -1,0 +1,43 @@
+export type Moto = {
+  id: number;
+  brand: string;
+  model: string;
+  category: string;
+  year: number;
+  price: number;
+  currency: string;
+  condition: string;
+  status: string;
+  engine?: string | null;
+  power?: string | null;
+  mileage: number;
+  transmission?: string | null;
+  fuel?: string | null;
+  color?: string | null;
+  description?: string | null;
+  images: string[];
+  featured: boolean;
+  views: number;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+};
+
+export type Settings = {
+  id: number;
+  name: string;
+  logo?: string | null;
+  description?: string | null;
+  phone?: string | null;
+  whatsapp?: string | null;
+  email?: string | null;
+  address?: string | null;
+  wilaya: string;
+  instagram?: string | null;
+  facebook?: string | null;
+  openingHours?: string | null;
+  accentColor: string;
+  currency: string;
+  showPrices: boolean;
+  showSoldMotos: boolean;
+  whatsappBtnText: string;
+};
