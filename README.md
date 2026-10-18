@@ -48,7 +48,13 @@ Pages principales : `/`, `/motos`, `/admin/login`, `/admin`, `/admin/settings`.
 
 ## Deploiement Hostinger
 
-Importer `php/database.sql` dans la base MySQL Hostinger, envoyer `php/api.php` et `php/config.example.php` (renomme en `config.php`) sur l hebergement PHP, puis definir `PHP_API_URL` vers l URL publique de `api.php` dans le panneau Node.js :
+Importer `php/database.sql` dans la base MySQL Hostinger, envoyer `php/api.php` et
+`php/config.example.php` (renomme en `config.php`) sur l hebergement PHP, puis
+remplacer les valeurs de `config.php`. Le fichier `config.php` est obligatoire :
+les variables Node.js de Hostinger ne sont pas automatiquement disponibles pour
+le runtime PHP. `DATABASE_URL` peut aussi être utilisé dans `config.php` pour la
+connexion MySQL, mais `ADMIN_EMAIL` et `ADMIN_PASSWORD` doivent rester définis
+dans ce fichier PHP.
 
 Dans les variables d’environnement Hostinger, utiliser les valeurs de
 production pour `NEXTAUTH_URL`, `NEXTAUTH_SECRET` et `PHP_API_URL`. La

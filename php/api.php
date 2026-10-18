@@ -45,10 +45,17 @@ function database(): PDO
     static $pdo;
     if ($pdo instanceof PDO) return $pdo;
 
-    $host = getenv('PHP_DB_HOST') ?: 'localhost';
-    $name = getenv('PHP_DB_NAME') ?: 'motodb';
-    $user = getenv('PHP_DB_USER') ?: 'root';
-    $password = getenv('PHP_DB_PASSWORD') ?: '';
+    $databaseUrl = getenv('DATABASE_URL') ?: '';
+    $parsedUrl = $databaseUrl !== '' ? parse_url($databaseUrl) : false;
+    $host = getenv('PHP_DB_HOST') ?: ($parsedUrl['host'] ?? '');
+    $name = getenv('PHP_DB_NAME') ?: ltrim((string) ($parsedUrl['path'] ?? ''), '/');
+    $user = getenv('PHP_DB_USER') ?: (isset($parsedUrl['user']) ? urldecode($parsedUrl['user']) : '');
+    $password = getenv('PHP_DB_PASSWORD') ?: (isset($parsedUrl['pass']) ? urldecode($parsedUrl['pass']) : '');
+
+    if ($host === '' || $name === '' || $user === '') {
+        throw new RuntimeException('Configuration MySQL manquante. Definissez PHP_DB_HOST, PHP_DB_NAME, PHP_DB_USER et PHP_DB_PASSWORD dans php/config.php.');
+    }
+
     $pdo = new PDO("mysql:host={$host};dbname={$name};charset=utf8mb4", $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
