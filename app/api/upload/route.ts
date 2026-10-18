@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-options";
 
 export const runtime = "nodejs";
 const accepted = new Set(["image/jpeg", "image/png", "image/webp"]);

@@ -50,6 +50,11 @@ Pages principales : `/`, `/motos`, `/admin/login`, `/admin`, `/admin/settings`.
 
 Importer `php/database.sql` dans la base MySQL Hostinger, envoyer `php/api.php` et `php/config.example.php` (renomme en `config.php`) sur l hebergement PHP, puis definir `PHP_API_URL` vers l URL publique de `api.php` dans le panneau Node.js :
 
+Dans les variables d’environnement Hostinger, utiliser les valeurs de
+production pour `NEXTAUTH_URL`, `NEXTAUTH_SECRET` et `PHP_API_URL`. La
+commande `npm run build` utilise Webpack afin d’éviter les erreurs Turbopack
+possibles sur l’environnement Hostinger.
+
 ```bash
 npm install --legacy-peer-deps
 npm run build
