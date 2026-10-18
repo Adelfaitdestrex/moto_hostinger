@@ -8,4 +8,4 @@ putenv('ADMIN_EMAIL=admin@maisonmoto.dz');
 putenv('ADMIN_PASSWORD=admin');
 
 // Alternatively, DATABASE_URL may be used for the database connection:
-// putenv('DATABASE_URL=mysql://user:password@host/database');
+ putenv('mysql://u605774181_motodb:2yOY%3A%7CdZzqJ%40@srv1805.hstgr.io/u605774181_motodb');
